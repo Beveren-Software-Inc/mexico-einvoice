@@ -1,7 +1,1 @@
-## Mexico Einvoice
-
-Mexico Einvoice
-
-#### License
-
-MIT
+## Mexico E-Invoicing
