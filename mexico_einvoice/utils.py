@@ -12,7 +12,8 @@ def get_token():
     return token
 
 def generate_einvoice(doc, method):
-    if doc.generate_e_invoice:
+    e_invoice_setting = frappe.get_doc("E Invoice Setting", 'E Invoice Setting')
+    if e_invoice_setting.generate_e_invoice:
         token = get_token()
         url = "https://www.facturapi.io/v2/invoices"
         header = {
