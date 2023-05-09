@@ -29,6 +29,7 @@ def generate_einvoice(doc, method):
             "payment_form": doc.payment_form
         }
         data = json.dumps(data)
+        frappe.log_error("data", data)
         response = requests.post(url, headers=header, data=data)
         frappe.log_error("response", response)
         frappe.log_error("data", data)
@@ -75,3 +76,4 @@ def get_items(doc):
             }
         })
     return items
+
