@@ -22,20 +22,18 @@ def generate_einvoice(doc, method):
         }
         customer = get_customer_details(doc)
         items = get_items(doc)
+        
         data = {
             "customer": customer,
             "items": items,
             "use": "G01",
             "payment_form": doc.payment_form
         }
+
         data = json.dumps(data)
-        frappe.log_error("data", data)
         response = requests.post(url, headers=header, data=data)
-        frappe.log_error("response", response)
-        frappe.log_error("data", data)
         if response.status_code == 200:
             response = response.json()
-            frappe.log_error("response", response)
             doc.e_invoice_id = response.get('id'),
             doc.uuid = response.get('uuid'),
             doc.sat_signature = response.get('sat_signature'),
@@ -76,4 +74,24 @@ def get_items(doc):
             }
         })
     return items
+
+def validate_cancel(doc, method):
+    if not doc.motive:
+        frappe.throw(_("Please, select motive field before cancel"))
+
+def cancel_einvoice(doc, method):
+    e_invoice_setting = frappe.get_doc("E Invoice Setting", 'E Invoice Setting')
+    if e_invoice_setting.cancel_e_invoice:
+        token = get_token()
+        url = "https://www.facturapi.io/v2/invoices/"+doc.e_invoice_id+"?motive="+doc.motive
+        header = {
+            "Authorization": "Bearer {}".format(token),
+            "Content-Type": "application/json"
+        }
+        response = requests.delete(url, headers=header)
+        if response.status_code == 200:
+            response = response.json()
+            frappe.db.set_value('Sales Invoice', doc.name, 'invoice_status', response.get('status'))
+        else:
+            frappe.throw(_("E-Invoice generation fail."))
 

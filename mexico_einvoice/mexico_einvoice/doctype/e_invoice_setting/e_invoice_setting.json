@@ -8,7 +8,8 @@
  "engine": "InnoDB",
  "field_order": [
   "secret_key",
-  "generate_e_invoice"
+  "generate_e_invoice",
+  "cancel_e_invoice"
  ],
  "fields": [
   {
@@ -19,16 +20,22 @@
    "reqd": 1
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "generate_e_invoice",
    "fieldtype": "Check",
    "label": "Generate E Invoice"
+  },
+  {
+   "default": "1",
+   "fieldname": "cancel_e_invoice",
+   "fieldtype": "Check",
+   "label": "Cancel E Invoice"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-05-06 11:22:54.244337",
+ "modified": "2023-05-11 07:11:58.620125",
  "modified_by": "Administrator",
  "module": "Mexico Einvoice",
  "name": "E Invoice Setting",

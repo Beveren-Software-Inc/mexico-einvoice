@@ -32,6 +32,7 @@ app_license = "MIT"
 doctype_js = {
     "Sales Invoice" : "public/js/sales_invoice.js"
 }
+
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -106,7 +107,11 @@ doctype_js = {
 
 doc_events = {
 	"Sales Invoice": {
-		"before_submit": "mexico_einvoice.utils.generate_einvoice"
+		"before_submit": "mexico_einvoice.utils.generate_einvoice",
+        "on_cancel": [
+            "mexico_einvoice.utils.cancel_einvoice",
+            "mexico_einvoice.utils.validate_cancel"
+		]
 	}
 }
 
