@@ -109,8 +109,8 @@ doc_events = {
 	"Sales Invoice": {
 		"before_submit": "mexico_einvoice.utils.generate_einvoice",
         "on_cancel": [
-            "mexico_einvoice.utils.cancel_einvoice",
-            "mexico_einvoice.utils.validate_cancel"
+            "mexico_einvoice.utils.validate_cancel",
+            "mexico_einvoice.utils.cancel_einvoice"
 		]
 	}
 }

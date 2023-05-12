@@ -94,5 +94,5 @@ def cancel_einvoice(doc, method):
             frappe.db.set_value('Sales Invoice', doc.name, 'invoice_status', response.get('status'))
             frappe.db.commit()
         else:
-            frappe.throw(_("E-Invoice generation fail."))
+            frappe.throw(_("E-Invoice cancellation fail."))
 
