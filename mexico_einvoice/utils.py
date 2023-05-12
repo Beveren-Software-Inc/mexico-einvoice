@@ -92,6 +92,7 @@ def cancel_einvoice(doc, method):
         if response.status_code == 200:
             response = response.json()
             frappe.db.set_value('Sales Invoice', doc.name, 'invoice_status', response.get('status'))
+            frappe.db.commit()
         else:
             frappe.throw(_("E-Invoice generation fail."))
 
