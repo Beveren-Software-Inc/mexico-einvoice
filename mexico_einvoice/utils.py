@@ -89,6 +89,7 @@ def cancel_einvoice(doc, method):
             "Content-Type": "application/json"
         }
         response = requests.delete(url, headers=header)
+        frappe.log_error("response", response.get('status'))
         if response.status_code == 200:
             response = response.json()
             frappe.log_error("invoice_status", response.get('status'))
