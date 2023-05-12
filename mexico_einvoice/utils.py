@@ -91,6 +91,7 @@ def cancel_einvoice(doc, method):
         response = requests.delete(url, headers=header)
         if response.status_code == 200:
             response = response.json()
+            frappe.log_error("invoice_status", response.get('status'))
             frappe.db.set_value('Sales Invoice', doc.name, 'invoice_status', response.get('status'))
             frappe.db.commit()
         else:
