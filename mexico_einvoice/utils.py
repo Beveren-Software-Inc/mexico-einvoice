@@ -27,7 +27,7 @@ def generate_einvoice(doc, method):
             "customer": customer,
             "items": items,
             "use": "G01",
-            "payment_form": doc.payment_form
+            "payment_form": "28" 
         }
 
         data = json.dumps(data)
@@ -64,13 +64,26 @@ def get_customer_details(doc):
 
 def get_items(doc):
     items = []
+
     for item in doc.items:
+        #applying taxes
+        taxes = []
+        if item.item_tax_template:
+            item_tax_doc = frappe.get_doc("Item Tax Template", item.item_tax_template)
+            for tax in item_tax_doc.taxes:
+                taxes.append({
+                    "type": tax.maxico_tax_type,
+                    "rate": tax.tax_rate/100
+                })
+                
         items.append({
             'quantity': item.qty,
             'product': {
                 "description": re.sub('<[^<]+?>', '', _("{}".format(item.description))),
                 "product_key": item.product_key,
-                "price": item.net_amount 
+                "price": item.rate,
+                "tax_included": False,
+                "taxes":taxes
             }
         })
     return items
