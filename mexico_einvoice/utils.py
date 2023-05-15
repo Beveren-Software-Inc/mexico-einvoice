@@ -92,20 +92,28 @@ def validate_cancel(doc, method):
     if not doc.motive:
         frappe.throw(_("Please, select motive field before cancel"))
 
-def cancel_einvoice(doc, method):
+@frappe.whitelist()
+def cancel_einvoice(invoice_name, e_invoice_id, motive):
     e_invoice_setting = frappe.get_doc("E Invoice Setting", 'E Invoice Setting')
     if e_invoice_setting.cancel_e_invoice:
         token = get_token()
-        url = "https://www.facturapi.io/v2/invoices/"+doc.e_invoice_id+"?motive="+doc.motive
+        url = "https://www.facturapi.io/v2/invoices/"+e_invoice_id+"?motive="+motive
         header = {
             "Authorization": "Bearer {}".format(token),
             "Content-Type": "application/json"
         }
         response = requests.delete(url, headers=header)
         if response.status_code == 200:
+            doc = frappe.get_doc("Sales Invoice", invoice_name)
+            doc.cancel()
             response = response.json()
-            frappe.db.set_value('Sales Invoice', doc.name, 'invoice_status', response.get('status'))
+            frappe.db.set_value('Sales Invoice', invoice_name, {
+                'invoice_status': response.get('status'),
+                'motive': motive
+            })
             frappe.db.commit()
+            return "success"
         else:
+            return "fail"
             frappe.throw(_("E-Invoice cancellation fail."))
 
