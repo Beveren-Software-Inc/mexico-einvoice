@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include mexico_einvoice *.css
+recursive-include mexico_einvoice *.csv
+recursive-include mexico_einvoice *.html
+recursive-include mexico_einvoice *.ico
+recursive-include mexico_einvoice *.js
+recursive-include mexico_einvoice *.json
+recursive-include mexico_einvoice *.md
+recursive-include mexico_einvoice *.png
+recursive-include mexico_einvoice *.py
+recursive-include mexico_einvoice *.svg
+recursive-include mexico_einvoice *.txt
+recursive-exclude mexico_einvoice *.pyc
