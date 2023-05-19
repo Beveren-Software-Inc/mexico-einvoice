@@ -43,7 +43,9 @@ def generate_einvoice(doc, method):
             doc.cfdi_version = response.get('cfdi_version'),
             doc.verification_url = response.get('verification_url')
         else:
-            frappe.throw(_("E-Invoice generation fail."))
+            response = response.json()
+            frappe.log_error("generate_einvoice", response.get('message'))
+            frappe.throw(_(response.get('message')))
 
 def get_customer_details(doc):
     customer_name, tax_id, tax_system = frappe.db.get_value('Customer', doc.customer, ['customer_name', 'tax_id', 'tax_system'])
@@ -97,10 +99,6 @@ def get_items(doc):
         })
     return items
 
-def validate_cancel(doc, method):
-    if not doc.motive:
-        frappe.throw(_("Please, select motive field before cancel"))
-
 @frappe.whitelist()
 def cancel_einvoice(invoice_name, e_invoice_id, motive):
     e_invoice_setting = frappe.get_doc("E Invoice Setting", 'E Invoice Setting')
@@ -123,6 +121,7 @@ def cancel_einvoice(invoice_name, e_invoice_id, motive):
             frappe.db.commit()
             return "success"
         else:
+            response = response.json()
+            frappe.log_error("cancel_einvoice.", response.get('message'))
             return "fail"
-            frappe.throw(_("E-Invoice cancellation fail."))
 
