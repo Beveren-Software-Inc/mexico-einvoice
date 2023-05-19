@@ -25,7 +25,7 @@ function download_e_invoice(frm){
         callback: function(r) {
             if(r.message) {
                 const bearerToken = "Bearer "+r.message;
-                fetch("https://www.facturapi.io/v2/invoices/"+frm.doc.e_invoice_id+"/pdf", {
+                fetch("https://www.facturapi.io/v2/invoices/"+frm.doc.e_invoice_id+"/zip", {
                 headers: {
                     "Authorization": bearerToken
                 }
@@ -36,7 +36,7 @@ function download_e_invoice(frm){
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = frm.doc.e_invoice_id+".pdf";
+                a.download = frm.doc.e_invoice_id+".zip";
                 document.body.appendChild(a);
                 a.click();
                 a.remove();})

@@ -69,13 +69,22 @@ def get_items(doc):
         #applying taxes
         taxes = []
         if item.item_tax_template:
+            frappe.log_error("tax", item.item_code)
             item_tax_doc = frappe.get_doc("Item Tax Template", item.item_tax_template)
             for tax in item_tax_doc.taxes:
                 taxes.append({
                     "type": tax.maxico_tax_type,
                     "rate": tax.tax_rate/100
                 })
-                
+        elif doc.taxes_and_charges:
+            frappe.log_error("tax", item.item_code)
+            item_tax_doc = frappe.get_doc("Sales Taxes and Charges Template", doc.taxes_and_charges)
+            for tax in item_tax_doc.taxes:
+                taxes.append({
+                    "type": tax.mexico_tax_type,
+                    "rate": tax.rate/100
+                })
+
         items.append({
             'quantity': item.qty,
             'product': {
