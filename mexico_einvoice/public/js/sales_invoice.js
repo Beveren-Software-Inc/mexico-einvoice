@@ -61,8 +61,7 @@ function getDialogCancel (frm) {
             { value: '01', label: '01 - Receipt issued with errors related to.'},
             { value: '02', label: '02 - Receipt issued with unrelated errors.'},
             { value: '03', label: '03 - The operation was not carried out.'},
-            { value: '04', label: '04 - Nominative operation related to the global invoice.'},
-
+            { value: '04', label: '04 - Nominative operation related to the global invoice.'}
           ],
           required: true,
           default:"03",

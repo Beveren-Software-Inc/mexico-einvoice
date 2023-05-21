@@ -114,9 +114,20 @@ def cancel_einvoice(invoice_name, e_invoice_id, motive):
             doc = frappe.get_doc("Sales Invoice", invoice_name)
             doc.cancel()
             response = response.json()
+            
+            #set reason
+            if motive == "01":
+                reason = "01 - Receipt issued with errors related to."
+            elif motive == "02":
+                reason = "02 - Receipt issued with unrelated errors."
+            elif motive == "03":
+                reason = "03 - The operation was not carried out."
+            elif motive == "04":
+                reason = "04 - Nominative operation related to the global invoice."
+
             frappe.db.set_value('Sales Invoice', invoice_name, {
                 'invoice_status': response.get('status'),
-                'motive': motive
+                'motive': reason
             })
             frappe.db.commit()
             return "success"
