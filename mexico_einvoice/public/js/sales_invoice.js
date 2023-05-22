@@ -13,7 +13,21 @@ frappe.ui.form.on('Sales Invoice', {
     before_cancel: function(frm){
         dialog_cancel.show();
         frappe.validated = false; 
-    }
+    },
+    onload_post_render: function(frm) {
+        if(frm.is_dirty()){
+            frm.set_value({
+                'e_invoice_id': '',
+                'invoice_status': '',
+                'motive': '', 
+                'uuid': '',
+                'cfdi_version': '',
+                'verification_url': '',
+                'sat_cert_number': '',
+                'signature': ''
+            })
+        }
+	}
 });
 
 function download_e_invoice(frm){
