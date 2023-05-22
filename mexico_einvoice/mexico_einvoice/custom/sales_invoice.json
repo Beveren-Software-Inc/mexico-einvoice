@@ -935,7 +935,7 @@
    "insert_after": "invoice_status",
    "is_system_generated": 0,
    "is_virtual": 0,
-   "label": "motive",
+   "label": "Cancel motive",
    "length": 0,
    "mandatory_depends_on": null,
    "modified": "2023-05-21 00:32:44.405499",

@@ -27,7 +27,8 @@ def generate_einvoice(doc, method):
             "customer": customer,
             "items": items,
             "use": "G01",
-            "payment_form": "28" 
+            "payment_form": "99" ,
+            "payment_method": "PPD"
         }
 
         data = json.dumps(data)
