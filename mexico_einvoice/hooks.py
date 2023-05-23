@@ -30,7 +30,8 @@ app_license = "MIT"
 
 # include js in doctype views
 doctype_js = {
-    "Sales Invoice" : "public/js/sales_invoice.js"
+    "Sales Invoice" : "public/js/sales_invoice.js",
+    "Payment Entry": "public/js/payment_entry.js"
 }
 
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -107,11 +108,7 @@ doctype_js = {
 
 doc_events = {
 	"Sales Invoice": {
-		"before_submit": "mexico_einvoice.utils.generate_einvoice",
-        # "on_cancel": [
-        #     "mexico_einvoice.utils.validate_cancel",
-        #     "mexico_einvoice.utils.cancel_einvoice"
-		# ]
+		"before_submit": "mexico_einvoice.utils.generate_einvoice"
 	}
 }
 
