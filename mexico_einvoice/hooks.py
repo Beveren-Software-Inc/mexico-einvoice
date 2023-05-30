@@ -109,6 +109,9 @@ doctype_js = {
 doc_events = {
 	"Sales Invoice": {
 		"before_submit": "mexico_einvoice.utils.generate_einvoice"
+	},
+    "Payment Entry": {
+        "before_submit": "mexico_einvoice.utils.update_payment"
 	}
 }
 

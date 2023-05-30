@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "enable",
+  "default",
   "form_id",
   "description"
  ],
@@ -31,12 +32,20 @@
    "default": "0",
    "fieldname": "enable",
    "fieldtype": "Check",
+   "in_list_view": 1,
    "label": "Enable"
+  },
+  {
+   "default": "0",
+   "fieldname": "default",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Default"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-05-23 03:40:52.580965",
+ "modified": "2023-05-28 05:29:31.470593",
  "modified_by": "Administrator",
  "module": "Mexico Einvoice",
  "name": "Payment Form",
