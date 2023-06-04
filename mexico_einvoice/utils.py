@@ -32,12 +32,14 @@ def generate_einvoice(doc, method):
         }
 
         #validate advance payment
-        validate_advance_payments(data, doc)
-
+        validate_advance_payment(data, doc)
+       
         data = json.dumps(data)
         response = requests.post(url, headers=header, data=data)
         if response.status_code == 200:
             response = response.json()
+            #validate partial payment 
+            validate_partial_payment(doc, response.get('uuid'))
             doc.e_invoice_id = response.get('id'),
             doc.uuid = response.get('uuid'),
             doc.sat_signature = response.get('sat_signature'),
@@ -48,15 +50,18 @@ def generate_einvoice(doc, method):
             doc.verification_url = response.get('verification_url')
         else:
             response = response.json()
-            frappe.log_error("generate_einvoice", response.get('message'))
             frappe.throw(_(response.get('message')))
 
-def validate_advance_payments(data, doc):
+def validate_advance_payment(data, doc):
     if doc.outstanding_amount == 0:
         data.update({
             "payment_form": "30" ,
             "payment_method": "PUE"
         })
+
+def validate_partial_payment(doc, uuid):
+    if (doc.total_advance and doc.outstanding_amount) > 0:
+        update_partial_payment(doc, uuid)
 
 def get_customer_details(doc):
     customer_name, tax_id, tax_system = frappe.db.get_value('Customer', doc.customer, ['customer_name', 'tax_id', 'tax_system'])
@@ -142,7 +147,6 @@ def cancel_einvoice(invoice_name, e_invoice_id, motive):
             return "success"
         else:
             response = response.json()
-            frappe.log_error("cancel_einvoice.", response.get('message'))
             return "fail"
 
 def get_customer_from_payment(doc):
@@ -179,19 +183,31 @@ def update_payment(doc, method):
             uuid = frappe.get_value("Sales Invoice", rel_doc.reference_name, 'uuid')
             installments = linked_sales_invoice(rel_doc.reference_name)
 
+            #update taxes
+            si_doc = frappe.get_doc("Sales Invoice", rel_doc.reference_name)
+            taxes = []
+            if si_doc.taxes_and_charges:
+                for tax in doc.taxes:
+                    taxes.append({
+                        "base": rel_doc.allocated_amount / (1+ (tax.rate/100)),
+                        "type": "IVA",
+                        "rate": tax.rate/100
+                    })
+            else:
+                taxes.append({
+                    "base": rel_doc.allocated_amount / (1+ 0.16),
+                    "type": "IVA",
+                    "rate": 0.16
+                })
+
             invoice_details = {
                 "uuid": uuid,
                 "amount": rel_doc.allocated_amount,
                 "last_balance": rel_doc.outstanding_amount,
                 "installment": installments+1,
-                "taxes": [
-                    {
-                        "base": rel_doc.allocated_amount / (1+ 0.16),
-                        "type": "IVA",
-                        "rate": 0.16
-                    }
-                ]
+                "taxes": taxes
             }
+
             related_documents.append(invoice_details)
 
     complements = [
@@ -220,14 +236,11 @@ def update_payment(doc, method):
     }
 
     data = json.dumps(data)
-    frappe.log_error("data", data)
     response = requests.post(url, headers=header, data=data)
     if response.status_code == 200:
         response = response.json()
-        frappe.log_error("update_payment", response.get('message'))
     else:
         response = response.json()
-        frappe.log_error("update_payment", response.get('message'))
         frappe.throw(_(response.get('message')))
 
 def linked_sales_invoice(sales_invoice):
@@ -235,3 +248,71 @@ def linked_sales_invoice(sales_invoice):
         and reference_doctype="Sales Invoice" and reference_name="{sales_invoice}" """
     count = frappe.db.sql(query, pluck='installment')
     return count[0]
+
+def update_partial_payment(doc, uuid):
+
+    customer = get_customer_details(doc)
+
+    #update taxes
+    taxes = []
+    if doc.taxes_and_charges:
+        for tax in doc.taxes:
+            taxes.append({
+                "base": doc.total_advance / (1+ (tax.rate/100)),
+                "type": "IVA",
+                "rate": tax.rate/100
+            })
+    else:
+        taxes.append({
+            "base": doc.total_advance / (1+ 0.16),
+            "type": "IVA",
+            "rate": 0.16
+        })
+
+
+    #update related documents
+    related_documents = []
+
+    installments = linked_sales_invoice(doc.name)
+
+    invoice_details = {
+        "uuid": uuid,
+        "amount": doc.total_advance,
+        "last_balance": doc.grand_total,
+        "installment": installments+1,
+        "taxes": taxes
+    }
+    related_documents.append(invoice_details)
+
+    complements = [
+        {
+            "type": "pago",
+            "data": [
+                {
+                    "payment_form": str(30),
+                    "related_documents": related_documents
+                }
+            ]
+        }
+    ]
+
+    data = {  
+        "type": "P",
+        "customer": customer,
+        "complements": complements
+    }
+
+    token = get_token()
+    url = "https://www.facturapi.io/v2/invoices"
+    header = {
+        "Authorization": "Bearer {}".format(token),
+        "Content-Type": "application/json"
+    }
+
+    data = json.dumps(data)
+    response = requests.post(url, headers=header, data=data)
+    if response.status_code == 200:
+        response = response.json()
+    else:
+        response = response.json()
+        frappe.throw(_(response.get('message')))
