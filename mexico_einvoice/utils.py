@@ -38,8 +38,6 @@ def generate_einvoice(doc, method):
         response = requests.post(url, headers=header, data=data)
         if response.status_code == 200:
             response = response.json()
-            #validate partial payment 
-            validate_partial_payment(doc, response.get('uuid'))
             doc.e_invoice_id = response.get('id'),
             doc.uuid = response.get('uuid'),
             doc.sat_signature = response.get('sat_signature'),
@@ -48,6 +46,9 @@ def generate_einvoice(doc, method):
             doc.sat_cert_number = response.get('stamp').get('sat_cert_number'),
             doc.cfdi_version = response.get('cfdi_version'),
             doc.verification_url = response.get('verification_url')
+
+            #validate partial payment 
+            validate_partial_payment(doc, response)
         else:
             response = response.json()
             frappe.throw(_(response.get('message')))
@@ -59,9 +60,9 @@ def validate_advance_payment(data, doc):
             "payment_method": "PUE"
         })
 
-def validate_partial_payment(doc, uuid):
+def validate_partial_payment(doc, response):
     if (doc.total_advance and doc.outstanding_amount) > 0:
-        update_partial_payment(doc, uuid)
+        update_partial_payment(doc, response)
 
 def get_customer_details(doc):
     customer_name, tax_id, tax_system = frappe.db.get_value('Customer', doc.customer, ['customer_name', 'tax_id', 'tax_system'])
@@ -207,7 +208,6 @@ def update_payment(doc, method):
                 "installment": installments+1,
                 "taxes": taxes
             }
-
             related_documents.append(invoice_details)
 
     complements = [
@@ -239,6 +239,13 @@ def update_payment(doc, method):
     response = requests.post(url, headers=header, data=data)
     if response.status_code == 200:
         response = response.json()
+        
+        #updating invoice payments
+        for ref in doc.references:
+            if ref.reference_doctype == "Sales Invoice":
+                si_doc = frappe.get_doc("Sales Invoice", ref.reference_name)
+                update_einvoice_payments(si_doc, response)
+                si_doc.save()
     else:
         response = response.json()
         frappe.throw(_(response.get('message')))
@@ -249,9 +256,10 @@ def linked_sales_invoice(sales_invoice):
     count = frappe.db.sql(query, pluck='installment')
     return count[0]
 
-def update_partial_payment(doc, uuid):
-
+def update_partial_payment(doc, response):
     customer = get_customer_details(doc)
+
+    uuid = response.get('uuid')
 
     #update taxes
     taxes = []
@@ -269,12 +277,9 @@ def update_partial_payment(doc, uuid):
             "rate": 0.16
         })
 
-
     #update related documents
     related_documents = []
-
     installments = linked_sales_invoice(doc.name)
-
     invoice_details = {
         "uuid": uuid,
         "amount": doc.total_advance,
@@ -283,7 +288,6 @@ def update_partial_payment(doc, uuid):
         "taxes": taxes
     }
     related_documents.append(invoice_details)
-
     complements = [
         {
             "type": "pago",
@@ -295,7 +299,6 @@ def update_partial_payment(doc, uuid):
             ]
         }
     ]
-
     data = {  
         "type": "P",
         "customer": customer,
@@ -313,6 +316,23 @@ def update_partial_payment(doc, uuid):
     response = requests.post(url, headers=header, data=data)
     if response.status_code == 200:
         response = response.json()
+
+        #update E-Invoice Payments
+        update_einvoice_payments(doc, response)
     else:
         response = response.json()
         frappe.throw(_(response.get('message')))
+
+def update_einvoice_payments(doc, response):
+    doc.append("e_invoice_payments", dict(
+        id = response.get('id'),
+        uuid = response.get('uuid'),
+        date = response.get('sat_signature'),
+        verification_url = response.get('verification_url'),
+        status = response.get('status'),
+        folio_number = response.get('folio_number'),
+        sat_signature = response.get('stamp').get('sat_signature'),
+        sat_cert_number = response.get('stamp').get('sat_cert_number'),
+        signature = response.get('stamp').get('signature'),
+        complement_string = response.get('stamp').get('complement_string')
+    ))
