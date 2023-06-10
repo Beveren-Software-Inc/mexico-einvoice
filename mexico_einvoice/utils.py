@@ -4,7 +4,6 @@ import requests
 from frappe import _
 import re
 
-
 @frappe.whitelist()
 def get_token():
     e_invoice_setting = frappe.get_doc("E Invoice Setting", 'E Invoice Setting')
@@ -200,7 +199,7 @@ def update_payment(doc, method):
                     "type": "IVA",
                     "rate": 0.16
                 })
-
+                
             invoice_details = {
                 "uuid": uuid,
                 "amount": rel_doc.allocated_amount,
@@ -279,7 +278,8 @@ def update_partial_payment(doc, response):
 
     #update related documents
     related_documents = []
-    installments = linked_sales_invoice(doc.name)
+    # installments = linked_sales_invoice(doc.name)
+    installments = len(doc.e_invoice_payments)
     invoice_details = {
         "uuid": uuid,
         "amount": doc.total_advance,

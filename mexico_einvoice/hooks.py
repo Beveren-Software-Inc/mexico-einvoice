@@ -10,6 +10,12 @@ app_license = "MIT"
 # Includes in <head>
 # ------------------
 
+fixtures = [
+    "Tax Type",
+    "Tax System",
+    "Payment Form",
+]
+
 # include js, css files in header of desk.html
 # app_include_css = "/assets/mexico_einvoice/css/mexico_einvoice.css"
 # app_include_js = "/assets/mexico_einvoice/js/mexico_einvoice.js"

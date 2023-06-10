@@ -1,0 +1,23 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Tax Type",
+  "modified": "2023-05-19 09:48:10.558294",
+  "name": "IVA",
+  "tax_type": "IVA"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Tax Type",
+  "modified": "2023-06-09 22:09:54.268343",
+  "name": "IEPS",
+  "tax_type": "IEPS"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Tax Type",
+  "modified": "2023-06-09 22:10:08.678715",
+  "name": "ISR",
+  "tax_type": "ISR"
+ }
+]
