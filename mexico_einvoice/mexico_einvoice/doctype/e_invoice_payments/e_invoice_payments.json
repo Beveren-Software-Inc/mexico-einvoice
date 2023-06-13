@@ -17,7 +17,7 @@
   "sat_cert_number",
   "signature",
   "complement_string",
-  "download"
+  "action_button"
  ],
  "fields": [
   {
@@ -93,16 +93,17 @@
    "read_only": 1
   },
   {
-   "fieldname": "download",
-   "fieldtype": "Button",
+   "fieldname": "action_button",
+   "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Download"
+   "in_standard_filter": 1,
+   "label": "Download Invoice"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-06-06 01:33:44.026957",
+ "modified": "2023-06-13 00:18:30.576511",
  "modified_by": "Administrator",
  "module": "Mexico Einvoice",
  "name": "E Invoice Payments",
