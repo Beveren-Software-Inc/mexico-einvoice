@@ -10,6 +10,12 @@ app_license = "MIT"
 # Includes in <head>
 # ------------------
 
+fixtures = [
+    "Tax Type",
+    "Tax System",
+    "Payment Form",
+]
+
 # include js, css files in header of desk.html
 # app_include_css = "/assets/mexico_einvoice/css/mexico_einvoice.css"
 # app_include_js = "/assets/mexico_einvoice/js/mexico_einvoice.js"
@@ -30,7 +36,8 @@ app_license = "MIT"
 
 # include js in doctype views
 doctype_js = {
-    "Sales Invoice" : "public/js/sales_invoice.js"
+    "Sales Invoice" : "public/js/sales_invoice.js",
+    "Payment Entry": "public/js/payment_entry.js"
 }
 
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -107,11 +114,10 @@ doctype_js = {
 
 doc_events = {
 	"Sales Invoice": {
-		"before_submit": "mexico_einvoice.utils.generate_einvoice",
-        # "on_cancel": [
-        #     "mexico_einvoice.utils.validate_cancel",
-        #     "mexico_einvoice.utils.cancel_einvoice"
-		# ]
+		"before_submit": "mexico_einvoice.utils.generate_einvoice"
+	},
+    "Payment Entry": {
+        "before_submit": "mexico_einvoice.utils.update_payment"
 	}
 }
 

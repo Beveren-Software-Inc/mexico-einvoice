@@ -6,9 +6,19 @@ frappe.ui.form.on('Sales Invoice', {
         
 		if (frm.doc.docstatus == 1 && frm.doc.e_invoice_id) {
             frm.add_custom_button(__('Download E-Invoice'), function() {
-                download_e_invoice(frm)
+                download_e_invoice(frm.doc.e_invoice_id)
             })
+            // remove action buttons from child table
+            $('.grid-buttons').remove()
         }
+        //show download button in grid row
+        show_download_buttons(frm)
+
+        //download payment invoice
+        frm.fields_dict['e_invoice_payments'].$wrapper.on('click', '.download-button', function() {
+            var invoice_id = $(this).data('invoice-id');
+            download_e_invoice(invoice_id);
+        });
     },
     before_cancel: function(frm){
         dialog_cancel.show();
@@ -30,16 +40,16 @@ frappe.ui.form.on('Sales Invoice', {
 	}
 });
 
-function download_e_invoice(frm){
+function download_e_invoice(e_invoice_id){
     frappe.call({
         method: "mexico_einvoice.utils.get_token",
         args: {
-            e_invoice_id: frm.doc.e_invoice_id,
+            e_invoice_id: e_invoice_id,
         },
         callback: function(r) {
             if(r.message) {
                 const bearerToken = "Bearer "+r.message;
-                fetch("https://www.facturapi.io/v2/invoices/"+frm.doc.e_invoice_id+"/zip", {
+                fetch("https://www.facturapi.io/v2/invoices/"+e_invoice_id+"/zip", {
                 headers: {
                     "Authorization": bearerToken
                 }
@@ -50,7 +60,7 @@ function download_e_invoice(frm){
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = frm.doc.e_invoice_id+".zip";
+                a.download = e_invoice_id+".zip";
                 document.body.appendChild(a);
                 a.click();
                 a.remove();})
@@ -108,4 +118,30 @@ function cancel_einvoice(frm, values) {
             });
         }
     })
-  }
+}
+
+function show_download_buttons(frm){
+    frm.fields_dict['e_invoice_payments'].$wrapper.find('.grid-body .rows').find(".grid-row").each(function (i, item) {
+        let invoice_id = frm.doc.e_invoice_payments[i].id
+        $(item).find('[data-fieldname="action_button"]').replaceWith(`
+            <div class="col grid-static-col col-xs-2 " data-fieldname="action_button" data-fieldtype="Button">
+                <div class="field-area" style="margin:-3px">
+                    <div class="form-group frappe-control input-max-width" title="Download Payment Invoice">
+                        <button class="btn btn-xs btn-primary input-sm download-button" data-invoice-id="${invoice_id}">Download</button>
+                    </div>
+                </div>
+            </div>
+        `);
+    });
+}
+
+frappe.ui.form.on('E Invoice Payments', {
+    form_render(frm, cdt, cdn){
+        frm.fields_dict.e_invoice_payments.grid.wrapper.find('.grid-delete-row').hide();
+        frm.fields_dict.e_invoice_payments.grid.wrapper.find('.grid-duplicate-row').hide();
+        frm.fields_dict.e_invoice_payments.grid.wrapper.find('.grid-move-row').hide();
+        frm.fields_dict.e_invoice_payments.grid.wrapper.find('.grid-append-row').hide();
+        frm.fields_dict.e_invoice_payments.grid.wrapper.find('.grid-insert-row-below').hide();
+        frm.fields_dict.e_invoice_payments.grid.wrapper.find('.grid-insert-row').hide();
+    }
+})

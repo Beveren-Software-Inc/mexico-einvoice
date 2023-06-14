@@ -1,0 +1,42 @@
+[
+ {
+  "default": 0,
+  "description": "Cash",
+  "docstatus": 0,
+  "doctype": "Payment Form",
+  "enable": 1,
+  "form_id": "01",
+  "modified": "2023-05-28 05:29:54.268427",
+  "name": "01"
+ },
+ {
+  "default": 0,
+  "description": "Nominal check",
+  "docstatus": 0,
+  "doctype": "Payment Form",
+  "enable": 1,
+  "form_id": "02",
+  "modified": "2023-06-09 22:15:04.409758",
+  "name": "02"
+ },
+ {
+  "default": 1,
+  "description": "Electronic Funds Transfer",
+  "docstatus": 0,
+  "doctype": "Payment Form",
+  "enable": 1,
+  "form_id": "03",
+  "modified": "2023-06-09 22:16:47.010242",
+  "name": "03"
+ },
+ {
+  "default": 0,
+  "description": "Credit card",
+  "docstatus": 0,
+  "doctype": "Payment Form",
+  "enable": 1,
+  "form_id": "04",
+  "modified": "2023-06-09 22:16:22.745595",
+  "name": "04"
+ }
+]
