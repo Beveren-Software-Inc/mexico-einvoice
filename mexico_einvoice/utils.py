@@ -156,7 +156,11 @@ def get_customer_from_payment(doc):
     query = f""" select email_id, pincode from `tabAddress` where name in (select customer_primary_address from `tabCustomer` 
         where name = "{doc.party}") """
     
+    
     address = frappe.db.sql(query, as_dict=1)
+
+    if not address:
+        frappe.throw(_("Please, update Customer Primary Address in customer Doctype"))
 
     customer = {
         "legal_name": customer_name,
