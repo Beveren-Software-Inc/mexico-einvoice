@@ -12,7 +12,7 @@
    "collapsible_depends_on": null,
    "columns": 0,
    "creation": "2023-05-14 01:48:04.108042",
-   "default": null,
+   "default": "IVA",
    "depends_on": null,
    "description": null,
    "docstatus": 0,
