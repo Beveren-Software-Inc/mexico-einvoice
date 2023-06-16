@@ -1,0 +1,115 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-06-04 06:56:40.641746",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "id",
+  "uuid",
+  "date",
+  "verification_url",
+  "status",
+  "folio_number",
+  "stamp_section",
+  "sat_signature",
+  "sat_cert_number",
+  "signature",
+  "complement_string",
+  "action_button"
+ ],
+ "fields": [
+  {
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "ID",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "uuid",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "UUID",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Data",
+   "label": "DATE",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verification_url",
+   "fieldtype": "Long Text",
+   "label": "Verification Url",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "folio_number",
+   "fieldtype": "Data",
+   "label": "Folio Number",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "stamp_section",
+   "fieldtype": "Section Break",
+   "label": "Stamp",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sat_signature",
+   "fieldtype": "Data",
+   "label": "sat_signature",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sat_cert_number",
+   "fieldtype": "Data",
+   "label": "Sat Cert Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "signature",
+   "fieldtype": "Long Text",
+   "label": "Signature",
+   "read_only": 1
+  },
+  {
+   "fieldname": "complement_string",
+   "fieldtype": "Long Text",
+   "label": "Complement String",
+   "read_only": 1
+  },
+  {
+   "fieldname": "action_button",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Download Invoice"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-06-13 00:18:30.576511",
+ "modified_by": "Administrator",
+ "module": "Mexico Einvoice",
+ "name": "E Invoice Payments",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

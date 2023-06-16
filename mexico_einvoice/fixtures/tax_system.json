@@ -1,0 +1,90 @@
+[
+ {
+  "description": "General of Law Moral Persons",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:10:53.498427",
+  "name": "601",
+  "tax_id": "601"
+ },
+ {
+  "description": "Legal Entities with Non-Profit Purposes",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:11:14.211192",
+  "name": "603",
+  "tax_id": "603"
+ },
+ {
+  "description": "Lease",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:11:31.014882",
+  "name": "606",
+  "tax_id": "606"
+ },
+ {
+  "description": "Individuals with Business and Professional Activities",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:11:50.403467",
+  "name": "612",
+  "tax_id": "612"
+ },
+ {
+  "description": "Production Cooperative Societies that choose to defer their income",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:12:10.593095",
+  "name": "620",
+  "tax_id": "620"
+ },
+ {
+  "description": "Fiscal Incorporation",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:12:32.572255",
+  "name": "621",
+  "tax_id": "621"
+ },
+ {
+  "description": "Agricultural, Livestock, Forestry and Fishing Activities",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:12:52.792357",
+  "name": "622",
+  "tax_id": "622"
+ },
+ {
+  "description": "Optional for Groups of Companies",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:13:07.841969",
+  "name": "623",
+  "tax_id": "623"
+ },
+ {
+  "description": "Coordinated",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:13:21.238296",
+  "name": "624",
+  "tax_id": "624"
+ },
+ {
+  "description": "Regime of Business Activities with income through Technological Platforms",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:13:37.654667",
+  "name": "625",
+  "tax_id": "625"
+ },
+ {
+  "description": "Simplified Trust Regime",
+  "docstatus": 0,
+  "doctype": "Tax System",
+  "modified": "2023-06-09 22:14:03.237409",
+  "name": "626",
+  "tax_id": "626"
+ }
+]
