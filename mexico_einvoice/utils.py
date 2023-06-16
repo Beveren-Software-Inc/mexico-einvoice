@@ -253,10 +253,13 @@ def update_payment(doc, method):
         frappe.throw(_(response.get('message')))
 
 def linked_sales_invoice(sales_invoice):
-    query = f""" select COUNT(name) as installment from `tabPayment Entry Reference` where parenttype="Payment Entry" 
-        and reference_doctype="Sales Invoice" and reference_name="{sales_invoice}" """
-    count = frappe.db.sql(query, pluck='installment')
-    return count[0]
+    doc = frappe.get_doc("Sales Invoice", sales_invoice)
+    installments = len(doc.e_invoice_payments)
+    return installments
+    # query = f""" select COUNT(name) as installment from `tabPayment Entry Reference` where parenttype="Payment Entry" 
+    #     and reference_doctype="Sales Invoice" and reference_name="{sales_invoice}" """
+    # count = frappe.db.sql(query, pluck='installment')
+    # return count[0]
 
 def update_partial_payment(doc, response):
     customer = get_customer_details(doc)
