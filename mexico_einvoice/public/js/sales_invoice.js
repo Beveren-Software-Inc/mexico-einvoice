@@ -36,6 +36,10 @@ frappe.ui.form.on('Sales Invoice', {
                 'sat_cert_number': '',
                 'signature': ''
             })
+            
+            //clear e invoice payments
+            frm.set_value('e_invoice_payments', []);
+
         }
 	}
 });
