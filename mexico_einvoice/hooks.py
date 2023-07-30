@@ -14,6 +14,9 @@ fixtures = [
     "Tax Type",
     "Tax System",
     "Payment Form",
+    "Regime Type",
+    "Payment Periodicity",
+    "Contract Type"
 ]
 
 # include js, css files in header of desk.html
@@ -37,7 +40,9 @@ fixtures = [
 # include js in doctype views
 doctype_js = {
     "Sales Invoice" : "public/js/sales_invoice.js",
-    "Payment Entry": "public/js/payment_entry.js"
+    "Payment Entry": "public/js/payment_entry.js",
+    "Payroll Entry": "public/js/payroll_entry.js",
+    "Employee": "public/js/employee.js"
 }
 
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -118,7 +123,10 @@ doc_events = {
 	},
     "Payment Entry": {
         "before_submit": "mexico_einvoice.utils.update_payment"
-	}
+	},
+    "Salary Slip": {
+        "on_submit": "mexico_einvoice.payroll.update_payroll_entry"
+    }
 }
 
 # Scheduled Tasks

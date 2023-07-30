@@ -1,0 +1,112 @@
+[
+ {
+  "clue": "01",
+  "default": 0,
+  "description": "Employment contract for an indefinite period",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:25:02.497270",
+  "name": "01"
+ },
+ {
+  "clue": "02",
+  "default": 1,
+  "description": "Employment contract for specific work",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:27:58.745799",
+  "name": "02"
+ },
+ {
+  "clue": "03",
+  "default": 0,
+  "description": "Fixed-term employment contract",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:25:29.624605",
+  "name": "03"
+ },
+ {
+  "clue": "04",
+  "default": 0,
+  "description": "Seasonal employment contract",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:25:42.381384",
+  "name": "04"
+ },
+ {
+  "clue": "05",
+  "default": 0,
+  "description": "Work contract subject to test",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:25:55.547741",
+  "name": "05"
+ },
+ {
+  "clue": "06",
+  "default": 0,
+  "description": "Employment contract with initial training",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:26:09.024451",
+  "name": "06"
+ },
+ {
+  "clue": "07",
+  "default": 0,
+  "description": "Hiring modality by payment of hours worked",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:26:21.769115",
+  "name": "07"
+ },
+ {
+  "clue": "08",
+  "default": 0,
+  "description": "Modality of work by labor commission",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:26:35.683229",
+  "name": "08"
+ },
+ {
+  "clue": "09",
+  "default": 0,
+  "description": "Hiring modalities where there is no employment relationship",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:26:47.635703",
+  "name": "09"
+ },
+ {
+  "clue": "10",
+  "default": 0,
+  "description": "Retirement, pension, retirement.",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:27:03.075690",
+  "name": "10"
+ },
+ {
+  "clue": "99",
+  "default": 0,
+  "description": "another contract",
+  "docstatus": 0,
+  "doctype": "Contract Type",
+  "enable": 1,
+  "modified": "2023-07-27 10:27:20.414935",
+  "name": "99"
+ }
+]

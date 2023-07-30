@@ -1,0 +1,132 @@
+[
+ {
+  "default": 1,
+  "description": "Salaries (Includes income indicated in section I of article 94 of the LISR)",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 05:24:11.002016",
+  "name": "02",
+  "regime_type": "02"
+ },
+ {
+  "default": 0,
+  "description": "retired",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 03:31:04.178726",
+  "name": "03",
+  "regime_type": "03"
+ },
+ {
+  "default": 0,
+  "description": "pensioners",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 03:31:21.843586",
+  "name": "04",
+  "regime_type": "04"
+ },
+ {
+  "default": 0,
+  "description": "Assimilated Members Cooperative Societies Production",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 03:31:52.127965",
+  "name": "05",
+  "regime_type": "05"
+ },
+ {
+  "default": 0,
+  "description": "Assimilated Members Societies Civil Associations",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 03:32:07.719448",
+  "name": "06",
+  "regime_type": "06"
+ },
+ {
+  "default": 0,
+  "description": "Assimilated Members tips",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 03:32:21.570276",
+  "name": "07",
+  "regime_type": "07"
+ },
+ {
+  "default": 0,
+  "description": "Assimilated commission agents",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 05:23:32.851092",
+  "name": "08",
+  "regime_type": "08"
+ },
+ {
+  "default": 0,
+  "description": "Assimilated Fees",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 03:32:51.526075",
+  "name": "09",
+  "regime_type": "09"
+ },
+ {
+  "default": 0,
+  "description": "Assimilated shares",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 03:33:06.856572",
+  "name": "10",
+  "regime_type": "10"
+ },
+ {
+  "default": 0,
+  "description": "assimilated others",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 03:33:43.209665",
+  "name": "11",
+  "regime_type": "11"
+ },
+ {
+  "default": 0,
+  "description": "Retirees or Pensioners",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 03:34:02.633581",
+  "name": "12",
+  "regime_type": "12"
+ },
+ {
+  "default": 0,
+  "description": "Indemnification or Separation",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 03:34:19.484718",
+  "name": "13",
+  "regime_type": "13"
+ },
+ {
+  "default": 0,
+  "description": "Other Regime",
+  "docstatus": 0,
+  "doctype": "Regime Type",
+  "enable": 1,
+  "modified": "2023-07-27 05:23:54.812882",
+  "name": "99",
+  "regime_type": "99"
+ }
+]

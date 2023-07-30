@@ -1,6 +1,16 @@
 [
  {
   "default": 0,
+  "description": "Debit",
+  "docstatus": 0,
+  "doctype": "Payment Form",
+  "enable": 1,
+  "form_id": "28",
+  "modified": "2023-05-28 05:30:07.139704",
+  "name": "28"
+ },
+ {
+  "default": 0,
   "description": "Cash",
   "docstatus": 0,
   "doctype": "Payment Form",
